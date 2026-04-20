@@ -1,5 +1,5 @@
 import * as winston from 'winston';
-import 'winston-daily-rotate-file';
+import DailyRotateFile from 'winston-daily-rotate-file';
 import { join } from 'path';
 
 // 获取环境变量，默认开发环境
@@ -44,7 +44,7 @@ export const winstonConfig: winston.LoggerOptions = {
     // 生产环境：按日期分割的文件输出（info/warn/debug）
     ...(env === 'production' && !process.env.VERCEL
       ? [
-          new winston.transports.DailyRotateFile({
+          new DailyRotateFile({
             filename: join(logDir, 'app-%DATE%.log'), // 日志文件名：app-2026-02-05.log
             datePattern: 'YYYY-MM-DD', // 按日期分割
             maxSize: '20m', // 单个文件最大20M
@@ -52,7 +52,7 @@ export const winstonConfig: winston.LoggerOptions = {
             level: 'info', // 该文件记录info及以上级别
           }),
           // 单独的错误日志文件（仅记录error级别，方便排查）
-          new winston.transports.DailyRotateFile({
+          new DailyRotateFile({
             filename: join(logDir, 'error-%DATE%.log'),
             datePattern: 'YYYY-MM-DD',
             maxSize: '20m',

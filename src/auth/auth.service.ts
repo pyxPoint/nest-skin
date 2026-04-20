@@ -31,8 +31,9 @@ export class AuthService {
   private generateRefreshToken(userId: number): string {
     const payload = { sub: userId };
     return this.jwtService.sign(payload, {
-      secret: this.configService.get('jwt.refreshSecret'), // 建议用不同的 secret
-      expiresIn: this.configService.get('jwt.refreshExpiresIn'),
+      secret: this.configService.get<string>('jwt.refreshSecret') || '', // 建议用不同的 secret
+      expiresIn: this.configService.get<string>('jwt.refreshExpiresIn') as any,
+      // 建议用不同的 expiresIn
     });
   }
   async register(user: RegisterUserDto) {
