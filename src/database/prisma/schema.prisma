@@ -21,7 +21,7 @@ model navigation {
   updatedAt   DateTime @updatedAt
 }
 
-model pgae {
+model page {
   id              Int      @id @default(autoincrement())
   title           String
   heading         String?
