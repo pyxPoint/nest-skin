@@ -1,0 +1,133 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Navigation {
+  id          Int      @id @default(autoincrement())
+  status      Int      @default(0)
+  url         String   @unique
+  title       String
+  order       Int      @default(0)
+  batchTag    String?
+  parentId    Int?
+  mainMenu    Boolean? @default(false)
+  breadcrumbs Boolean? @default(true)
+  sideBar     Boolean? @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Page {
+  id              Int      @id @default(autoincrement())
+  title           String
+  heading         String?
+  sideBar         Boolean? @default(true)
+  inquiry         Boolean? @default(true)
+  fullScreen      Boolean? @default(false)
+  metaDescription String?  @db.Text
+  metaTitle       String?
+  content         String   @db.Text
+  cover           String?
+  order           Int      @default(0)
+  parentId        Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  status          Int      @default(0)
+  url             String   @unique
+  batchTag        String?
+}
+
+model Product {
+  id                      Int     @id @default(autoincrement())
+  title                   String
+  heading                 String?
+  metaDescription         String?
+  metaTitle               String?
+  cat                     String
+  shortName               String?
+  productName             String?
+  description             String? @db.Text
+  tag                     String?
+  productKeywords         String?
+  classID                 String?
+  similar                 String?
+  source                  String?
+  form                    String?
+  activity                String?
+  casno                   String?
+  isoelectricPoint        String?
+  unitDefinition          String?
+  activators              String?
+  storage                 String? @db.Text
+  preparationInstructions String?
+  synonyms                String?
+  keywords                String?
+  enzymeCommissionNumber  String?
+  purity                  String?
+  solubility              String?
+  phStability             String?
+  michaelisConstant       String?
+  optimumPh               String?
+  optimumTemperature      String?
+  thermalStability        String?
+  stability               String?
+  stabilizers             String?
+  inhibitors              String?
+  contaminants            String?
+  buffer                  String?
+  abbr                    String?
+  alias                   String?
+  applications            String?
+  productOverview         String?
+  appearance              String?
+  structure               String?
+  molecularWeight         String?
+  species                 String?
+  concentration           String?
+  pathway                 String?
+  function                String?
+  reaction                String?
+  notes                   String?
+  warnings                String?
+  package                 String?
+  specificity             String?
+  reconstitution          String?
+  canonical               String?
+  endotoxinLevel          String?
+  grade                   String?
+  composition             String?
+  reactionSystem          String?
+  batchTag                String?
+}
+
+model ProductCategory {
+  id              Int      @id @default(autoincrement())
+  title           String
+  status          Int      @default(0)
+  url             String   @unique
+  name            String
+  heading         String?
+  metaDescription String?  @db.Text
+  metaTitle       String?
+  description     String?  @db.Text
+  content         String?  @db.Text
+  batchTag        String?
+  parentId        Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  status    Int      @default(0)
+  email     String   @unique
+  password  String
+  name      String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
