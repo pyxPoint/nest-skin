@@ -46,7 +46,7 @@ export class NaviService {
     let count = 0;
     while (true) {
       const [err, batch] = await tryCatch(
-        this.prisma.navigation.findMany({
+        (this.prisma as PrismaService).navigation.findMany({
           where: { batchTag: !!batchTag ? batchTag : undefined },
           select: {
             id: true,

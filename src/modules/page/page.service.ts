@@ -14,7 +14,7 @@ export class PageService {
     if (await this.findByUrl(url)) {
       throw new NotFoundException('Page title already exists');
     }
-    return await this.prisma.page.create({
+    return await (this.prisma as PrismaService).page.create({
       data: {
         ...createPageDto,
         url,
@@ -23,7 +23,7 @@ export class PageService {
     });
   }
   async update(id: number, updatePageDto: UpdatePageDto) {
-    return await this.prisma.page.update({
+    return await (this.prisma as PrismaService).page.update({
       where: {
         id,
       },
@@ -33,7 +33,7 @@ export class PageService {
     });
   }
   async delete(id: number) {
-    return await this.prisma.page.delete({
+    return await (this.prisma as PrismaService).page.delete({
       where: {
         id,
       },
@@ -41,7 +41,7 @@ export class PageService {
   }
   async findByUrl(url: string) {
     this.logger.log(`findByUrl: ${url}`);
-    return await this.prisma.page.findUnique({
+    return await (this.prisma as PrismaService).page.findUnique({
       where: {
         url,
       },
@@ -53,7 +53,7 @@ export class PageService {
   }
   async findById(id: number) {
     this.logger.log(`findById: ${id}`);
-    return await this.prisma.page.findUnique({
+    return await (this.prisma as PrismaService).page.findUnique({
       where: {
         id,
       },
@@ -71,7 +71,7 @@ export class PageService {
       sortBy = 'id',
       sortOrder = 'desc',
     } = params;
-    return await this.prisma.page.findMany({
+    return await (this.prisma as PrismaService).page.findMany({
       where: {
         title: { contains: title },
       },
