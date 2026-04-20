@@ -1,2 +1,2 @@
-import { user } from '@prisma/client';
-export type SafeUser = Omit<user, 'password' | 'salt'>;
+import { User } from '@prisma/client';
+export type SafeUser = Omit<User, 'password' | 'salt'>;

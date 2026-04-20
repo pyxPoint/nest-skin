@@ -4,7 +4,7 @@ import { PrismaService } from 'nestjs-prisma'; // 从官方包导入
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 // Prisma自动生成的类型，无需手动定义，类型安全
-import { user } from '@prisma/client';
+import { User } from '@prisma/client';
 import appConfig from '../../config/app.config';
 import * as bcrypt from 'bcrypt';
 
@@ -19,7 +19,7 @@ export class UserService {
   ) {}
 
   // 创建用户（封装业务逻辑：密码简单加密，实际项目用bcrypt）
-  async create(createUserDto: CreateUserDto): Promise<Omit<user, 'password'>> {
+  async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
     const { password, ...userData } = createUserDto;
     // Prisma的create方法，类型安全，参数错误编译期报错
     const salt = await bcrypt.genSalt(this.config.saltRounds);
@@ -37,7 +37,7 @@ export class UserService {
     const { password: _, ...result } = user;
     return result;
   }
-  async findOneByEmail(email: string): Promise<user> {
+  async findOneByEmail(email: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { email },
     });
@@ -48,7 +48,7 @@ export class UserService {
     return user;
   }
   // 查询所有用户
-  async findAll(): Promise<Omit<user, 'password'>[]> {
+  async findAll(): Promise<Omit<User, 'password'>[]> {
     this.logger.log('Querying all users...');
     const users = await this.prisma.user.findMany();
     // 隐藏所有用户的密码
@@ -56,7 +56,7 @@ export class UserService {
   }
 
   // 根据ID查询用户
-  async findOne(id: number): Promise<Omit<user, 'password'>> {
+  async findOne(id: number): Promise<Omit<User, 'password'>> {
     const user = await this.prisma.user.findUnique({
       where: { id },
     });
@@ -72,7 +72,7 @@ export class UserService {
   async update(
     id: number,
     updateUserDto: UpdateUserDto,
-  ): Promise<Omit<user, 'password'>> {
+  ): Promise<Omit<User, 'password'>> {
     // 先校验用户是否存在
     await this.findOne(id);
     const user = await this.prisma.user.update({

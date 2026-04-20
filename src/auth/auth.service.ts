@@ -70,7 +70,7 @@ export class AuthService {
       const { sub } = this.jwtService.verify(refreshToken, {
         secret: this.configService.get('jwt.refreshSecret'),
       });
-      const user = await this.usersService.findOne(sub);
+      const user: any = await this.usersService.findOne(sub);
       if (!user) throw new UnauthorizedException('User not found');
       return this.getPass({ ...user, role: user.role as UserRole });
     } catch (error) {
