@@ -34,7 +34,7 @@ export class AuthService {
       secret: this.configService.get<string>('jwt.refreshSecret') as any, // 建议用不同的 secret
       expiresIn: this.configService.get<string>('jwt.refreshExpiresIn') as any,
       // 建议用不同的 expiresIn
-    });
+    } as any);
   }
   async register(user: RegisterUserDto) {
     this.logger.log(`register(${user.email})`);

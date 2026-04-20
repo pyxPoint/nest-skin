@@ -6,7 +6,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Navigation {
+model navigation {
   id          Int      @id @default(autoincrement())
   status      Int      @default(0)
   url         String   @unique
@@ -21,7 +21,7 @@ model Navigation {
   updatedAt   DateTime @updatedAt
 }
 
-model Page {
+model pgae {
   id              Int      @id @default(autoincrement())
   title           String
   heading         String?
@@ -41,7 +41,7 @@ model Page {
   batchTag        String?
 }
 
-model Product {
+model product {
   id                      Int     @id @default(autoincrement())
   title                   String
   heading                 String?
@@ -104,7 +104,7 @@ model Product {
   batchTag                String?
 }
 
-model ProductCategory {
+model product_category {
   id              Int      @id @default(autoincrement())
   title           String
   status          Int      @default(0)
@@ -121,7 +121,7 @@ model ProductCategory {
   updatedAt       DateTime @updatedAt
 }
 
-model User {
+model user {
   id        Int      @id @default(autoincrement())
   status    Int      @default(0)
   email     String   @unique
