@@ -109,5 +109,8 @@
       "prisma",
       "unrs-resolver"
     ]
+  },
+  "prisma": {
+    "schema": "src/database/prisma/schema.prisma"
   }
 }
