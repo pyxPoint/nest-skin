@@ -36,5 +36,11 @@ async function bootstrap() {
   logger.log(
     `Server start success : ${env} | address: http://localhost:${port}`,
   );
+  await app.init();
+  return app.getHttpAdapter().getInstance();
 }
-bootstrap();
+export default async (req: any, res: any) => {
+  const instance = await bootstrap();
+  await instance.ready();
+  instance.routing(req, res);
+};

@@ -12,13 +12,15 @@ export class RedisService implements OnModuleDestroy {
     @Inject(redisConfig.KEY)
     private config: ConfigType<typeof redisConfig>,
   ) {
-    this.client = new Redis({
-      host: config.host,
-      port: config.port,
-      password: config.password,
-      db: config.db,
-      lazyConnect: true,
-    });
+    this.client = !!config.url
+      ? new Redis(config.url)
+      : new Redis({
+          host: config.host,
+          port: config.port,
+          password: config.password,
+          db: config.db,
+          lazyConnect: true,
+        });
 
     this.client.on('connect', () => {
       this.logger.log('Redis connected successfully');
