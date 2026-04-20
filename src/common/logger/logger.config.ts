@@ -50,7 +50,7 @@ export const winstonConfig: winston.LoggerOptions = {
             maxSize: '20m', // 单个文件最大20M
             maxFiles: '14d', // 保留14天日志
             level: 'info', // 该文件记录info及以上级别
-          }),
+          } as any),
           // 单独的错误日志文件（仅记录error级别，方便排查）
           new DailyRotateFile({
             filename: join(logDir, 'error-%DATE%.log'),
@@ -58,7 +58,7 @@ export const winstonConfig: winston.LoggerOptions = {
             maxSize: '20m',
             maxFiles: '30d', // 错误日志保留30天
             level: 'error',
-          }),
+          } as any),
         ]
       : []),
   ],
