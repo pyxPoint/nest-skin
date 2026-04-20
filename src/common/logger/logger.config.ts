@@ -42,7 +42,7 @@ export const winstonConfig: winston.LoggerOptions = {
     new winston.transports.Console(),
 
     // 生产环境：按日期分割的文件输出（info/warn/debug）
-    ...(env === 'production'
+    ...(env === 'production' && !process.env.VERCEL
       ? [
           new winston.transports.DailyRotateFile({
             filename: join(logDir, 'app-%DATE%.log'), // 日志文件名：app-2026-02-05.log
